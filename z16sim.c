@@ -60,30 +60,167 @@ const char *regNames[8] = {"t0", "ra", "sp", "s0", "s1", "t1", "a0", "a1"};
 // Decodes a 16-bit instruction 'inst' (fetched at address 'pc') and writes a human‑readable
 // string to 'buf' (of size bufSize). This decoder uses the opcode (bits [2:0]) to distinguish
 // among R‑, I‑, B‑, L‑, J‑, U‑, and System instructions.
+
 void disassemble(uint16_t inst, uint16_t pc, char *buf, size_t bufSize) {
     uint8_t opcode = inst & 0x7;
     switch(opcode) {
         case 0x0: { // R-type: [15:12] funct4 | [11:9] rs2 | [8:6] rd/rs1 | [5:3] funct3 | [2:0] opcode
             uint8_t funct4 = (inst >> 12) & 0xF;
-            uint8_t rs2     = (inst >> 9) & 0x7;
-            uint8_t rd_rs1  = (inst >> 6) & 0x7;
-            uint8_t funct3  = (inst >> 3) & 0x7;
+            uint8_t rs2    = (inst >> 9) & 0x7;
+            uint8_t rd_rs1 = (inst >> 6) & 0x7;
+            uint8_t funct3 = (inst >> 3) & 0x7;
+
             if(funct4 == 0x0 && funct3 == 0x0)
-                printf("add %s, %s", regNames[rd_rs1], regNames[rs2]);
-            // complete the rest
+                snprintf(buf, bufSize, "add %s, %s", regNames[rd_rs1], regNames[rs2]);
+            else if(funct4 == 0x1 && funct3 == 0x0)
+                snprintf(buf, bufSize, "sub %s, %s", regNames[rd_rs1], regNames[rs2]);
+            else if(funct4 == 0x0 && funct3 == 0x1)
+                snprintf(buf, bufSize, "slt %s, %s", regNames[rd_rs1], regNames[rs2]);
+            else if(funct4 == 0x0 && funct3 == 0x2)
+                snprintf(buf, bufSize, "sltu %s, %s", regNames[rd_rs1], regNames[rs2]);
+            else if(funct4 == 0x2 && funct3 == 0x3)
+                snprintf(buf, bufSize, "sll %s, %s", regNames[rd_rs1], regNames[rs2]);
+            else if(funct4 == 0x4 && funct3 == 0x3)
+                snprintf(buf, bufSize, "srl %s, %s", regNames[rd_rs1], regNames[rs2]);
+            else if(funct4 == 0x8 && funct3 == 0x3)
+                snprintf(buf, bufSize, "sra %s, %s", regNames[rd_rs1], regNames[rs2]);
+            else if(funct4 == 0x1 && funct3 == 0x4)
+                snprintf(buf, bufSize, "or %s, %s", regNames[rd_rs1], regNames[rs2]);
+            else if(funct4 == 0x0 && funct3 == 0x5)
+                snprintf(buf, bufSize, "and %s, %s", regNames[rd_rs1], regNames[rs2]);
+            else if(funct4 == 0x0 && funct3 == 0x6)
+                snprintf(buf, bufSize, "xor %s, %s", regNames[rd_rs1], regNames[rs2]);
+            else if(funct4 == 0x0 && funct3 == 0x7)
+                snprintf(buf, bufSize, "mv %s, %s", regNames[rd_rs1], regNames[rs2]);
+            else if(funct4 == 0x4 && funct3 == 0x0)
+                snprintf(buf, bufSize, "jr %s", regNames[rs2]);
+            else if(funct4 == 0x8 && funct3 == 0x0)
+                snprintf(buf, bufSize, "jalr %s, %s", regNames[rd_rs1], regNames[rs2]);
+            else
+                snprintf(buf, bufSize, "Unknown R-type instruction");
             break;
+
         }
         case 0x1: { // I-type: [15:9] imm[6:0] | [8:6] rd/rs1 | [5:3] funct3 | [2:0] opcode
-            // your code goes here
+            uint8_t imm7 = (inst >> 9) & 0x7F;
+            uint8_t rd_rs1= (inst >> 6) & 0x7;
+            uint8_t funct3 = (inst >> 3) & 0x7;
+            int16_t simm = (imm7 & 0x40) ? (imm7 | 0xFF80) : imm7;
+
+            if(funct3 == 0x0)
+                snprintf(buf, bufSize, "addi %s, %d", regNames[rd_rs1], simm);
+            else if(funct3 == 0x1)
+                snprintf(buf, bufSize, "slti %s, %d", regNames[rd_rs1], simm);
+            else if(funct3 == 0x2)
+                snprintf(buf, bufSize, "sltui %s, %u", regNames[rd_rs1], imm7);
+            else if(funct3 == 0x3) {
+                uint8_t differentiator = (imm7 >> 4) & 0x7;
+                uint8_t shamt = imm7 & 0xF;
+
+                if(differentiator == 0x1)
+                    snprintf(buf, bufSize, "slli %s, %u", regNames[rd_rs1], shamt);
+                else if(differentiator == 0x2)
+                    snprintf(buf, bufSize, "srli %s, %u", regNames[rd_rs1], shamt);
+                else if(differentiator == 0x4)
+                    snprintf(buf, bufSize, "srai %s, %u", regNames[rd_rs1], shamt);
+                else
+                    snprintf(buf, bufSize, "Unknown shift instruction");
+            }
+            else if(funct3 == 0x4)
+                snprintf(buf, bufSize, "ori %s, %d", regNames[rd_rs1], simm);
+            else if(funct3 == 0x5)
+                snprintf(buf, bufSize, "andi %s, %d", regNames[rd_rs1], simm);
+            else if(funct3 == 0x6)
+                snprintf(buf, bufSize, "xori %s, %d", regNames[rd_rs1], simm);
+            else if(funct3 == 0x7)
+                snprintf(buf, bufSize, "li %s, %d", regNames[rd_rs1], simm);
+            else
+                snprintf(buf, bufSize, "Unknown I-type instruction");
             break;
         }
         case 0x2: { // B-type (branch): [15:12] offset[4:1] | [11:9] rs2 | [8:6] rs1 | [5:3] funct3 | [2:0] opcode
-            // your code goes here
+            int8_t imm = (inst >> 12) & 0xF;
+            imm = imm << 1; // The immediate is from bit 1 to bit 4
+            uint8_t rs2   = (inst >> 9) & 0x7;
+            uint8_t rs1   = (inst >> 6) & 0x7;
+            uint8_t funct3 = (inst >> 3) & 0x7;
+            int16_t branchTarget = pc + imm;
+
+            if(funct3 == 0x0)
+                snprintf(buf, bufSize, "beq %s, %s, 0x%04X", regNames[rs1], regNames[rs2], branchTarget);
+            else if(funct3 == 0x1)
+                snprintf(buf, bufSize, "bne %s, %s, 0x%04X", regNames[rs1], regNames[rs2], branchTarget);
+            else if(funct3 == 0x2)
+                snprintf(buf, bufSize, "bz %s, 0x%04X", regNames[rs1], branchTarget);
+            else if(funct3 == 0x3)
+                snprintf(buf, bufSize, "bnz %s, 0x%04X", regNames[rs1], branchTarget);
+            else if(funct3 == 0x4)
+                snprintf(buf, bufSize, "blt %s, %s, 0x%04X", regNames[rs1], regNames[rs2], branchTarget);
+            else if(funct3 == 0x5)
+                snprintf(buf, bufSize, "bge %s, %s, 0x%04X", regNames[rs1], regNames[rs2], branchTarget);
+            else if(funct3 == 0x6)
+                snprintf(buf, bufSize, "bltu %s, %s, 0x%04X", regNames[rs1], regNames[rs2], branchTarget);
+            else if(funct3 == 0x7)
+                snprintf(buf, bufSize, "bgeu %s, %s, 0x%04X", regNames[rs1], regNames[rs2], branchTarget);
+            else
+                snprintf(buf, bufSize, "Unknown B-type instruction");
+            break;
+
+        }
+        case 0x3: { // B-type (store): [15:12] offset[3:0] | [11:9] rs2 | [8:6] rs1 | [5:3] funct3 | [2:0] opcode
+            int8_t imm = (inst >> 12) & 0xF;
+            uint8_t rs2   = (inst >> 9) & 0x7;
+            uint8_t rs1   = (inst >> 6) & 0x7;
+            uint8_t funct3 = (inst >> 3) & 0x7;
+
+            if(funct3 == 0x0)
+                snprintf(buf, bufSize, "sb %s, %d(%s)", regNames[rs2], imm, regNames[rs1]);
+            else if(funct3 == 0x1)
+                snprintf(buf, bufSize, "sw %s, %d(%s)", regNames[rs2], imm, regNames[rs1]);
+            else
+                snprintf(buf, bufSize, "Unknown store instruction");
             break;
         }
-        
+        case 0x4: { // L-type (load): [15:12] offset[3:0] | [11:9] rs2 | [8:6] rd | [5:3] funct3 | [2:0] opcode
+            int8_t imm = (inst >> 12) & 0xF;
+            uint8_t rs2 = (inst >> 9) & 0x7;
+            uint8_t rd  = (inst >> 6) & 0x7;
+            uint8_t funct3 = (inst >> 3) & 0x7;
+
+            if(funct3 == 0x0)
+                snprintf(buf, bufSize, "lb %s, %d(%s)", regNames[rd], imm, regNames[rs2]);
+            else if(funct3 == 0x1)
+                snprintf(buf, bufSize, "lw %s, %d(%s)", regNames[rd], imm, regNames[rs2]);
+            else if(funct3 == 0x4)
+                snprintf(buf, bufSize, "lbu %s, %d(%s)", regNames[rd], imm, regNames[rs2]);
+            else
+                snprintf(buf, bufSize, "Unknown load instruction");
+            break;
+        }
+        case 0x5: { // J-type (jump): [15] f | [14:9] offset[9:4] | [8:6] rd | [5:3] offset[3:1] | [2:0] opcode
+            uint8_t imm4_9 = (inst >> 9) & 0x3F;
+            uint8_t rd     = (inst >> 6) & 0x7;  // rd is not printed
+            uint8_t f      = (inst >> 15) & 0x1;
+            uint8_t imm1_3 = (inst >> 3) & 0x7;
+            int16_t imm = (imm4_9 << 4) | (imm1_3 << 1);
+            imm = (imm4_9 & 0x20) ? (imm | 0xFC00) : imm; // Sign extend the immediate
+            int16_t branchTarget = pc + imm; // Get the jump target
+
+            if(f == 0)
+                snprintf(buf, bufSize, "j 0x%04X", branchTarget);
+            else if(f == 1)
+                snprintf(buf, bufSize, "jal 0x%04X", branchTarget);
+            else
+                snprintf(buf, bufSize, "Unknown jump instruction");
+            break;
+        }
         // complete the rest
-            
+
+
+
+
+
+
         default:
             snprintf(buf, bufSize, "Unknown opcode");
             break;
@@ -168,11 +305,11 @@ int executeInstruction(uint16_t inst) {
                 }
             }
             else if(funct3 == 0x4) //ori
-                regs[rd_rs1] = regs[rd_rs1] | imm7;
+                regs[rd_rs1] = regs[rd_rs1] | simm;
             else if(funct3 == 0x5) //andi
-                regs[rd_rs1] = regs[rd_rs1] & imm7;
+                regs[rd_rs1] = regs[rd_rs1] & simm;
             else if(funct3 == 0x6) //xori
-                regs[rd_rs1] = regs[rd_rs1] ^ imm7;
+                regs[rd_rs1] = regs[rd_rs1] ^ simm;
             else if(funct3 == 0x7) //li
                 regs[rd_rs1] = imm7;
 

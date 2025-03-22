@@ -1,10 +1,10 @@
-"D:\cLion\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=D:/cLion/CLion 2024.2.1/bin/ninja/win/x64/ninja.exe" -G Ninja -S D:\spring-2025\Assembly\Assembly-Project-1 -B D:\spring-2025\Assembly\Assembly-Project-1\cmake-build-debug
--- The C compiler identification is GNU 14.2.0
+"C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "MinGW Makefiles" -S C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte -B C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte\cmake-build-debug
+-- The C compiler identification is GNU 13.1.0
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
--- Check for working C compiler: D:/C Folder Stuff/MinGw/ucrt64/bin/cc.exe - skipped
+-- Check for working C compiler: C:/Program Files/JetBrains/CLion 2024.2.1/bin/mingw/bin/gcc.exe - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
--- Configuring done (13.6s)
--- Generating done (0.0s)
--- Build files have been written to: D:/spring-2025/Assembly/Assembly-Project-1/cmake-build-debug
+-- Configuring done (5.3s)
+-- Generating done (0.1s)
+-- Build files have been written to: C:/Users/marya/OneDrive/Documents/GitHub/csce-2303-s25-project-1-triple-byte/cmake-build-debug
