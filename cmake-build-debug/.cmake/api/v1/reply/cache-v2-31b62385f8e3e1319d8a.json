@@ -11,7 +11,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/marya/OneDrive/Documents/GitHub/csce-2303-s25-project-1-triple-byte/cmake-build-debug"
+			"value" : "D:/Uniii/Spring'25/Assembly/Project 1/csce-2303-s25-project-1-triple-byte/cmake-build-debug"
 		},
 		{
 			"name" : "Assembly_Project_1_IS_TOP_LEVEL",
@@ -35,7 +35,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/marya/OneDrive/Documents/GitHub/csce-2303-s25-project-1-triple-byte"
+			"value" : "D:/Uniii/Spring'25/Assembly/Project 1/csce-2303-s25-project-1-triple-byte"
 		},
 		{
 			"name" : "CMAKE_ADDR2LINE",
@@ -91,7 +91,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "c:/Users/marya/OneDrive/Documents/GitHub/csce-2303-s25-project-1-triple-byte/cmake-build-debug"
+			"value" : "d:/Uniii/Spring'25/Assembly/Project 1/csce-2303-s25-project-1-triple-byte/cmake-build-debug"
 		},
 		{
 			"name" : "CMAKE_CACHE_MAJOR_VERSION",
@@ -451,7 +451,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "C:/Users/marya/OneDrive/Documents/GitHub/csce-2303-s25-project-1-triple-byte/cmake-build-debug/CMakeFiles/pkgRedirects"
+			"value" : "D:/Uniii/Spring'25/Assembly/Project 1/csce-2303-s25-project-1-triple-byte/cmake-build-debug/CMakeFiles/pkgRedirects"
 		},
 		{
 			"name" : "CMAKE_GENERATOR",
@@ -523,7 +523,7 @@
 				}
 			],
 			"type" : "INTERNAL",
-			"value" : "C:/Users/marya/OneDrive/Documents/GitHub/csce-2303-s25-project-1-triple-byte"
+			"value" : "D:/Uniii/Spring'25/Assembly/Project 1/csce-2303-s25-project-1-triple-byte"
 		},
 		{
 			"name" : "CMAKE_INSTALL_PREFIX",

@@ -8,7 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/marya/OneDrive/Documents/GitHub/csce-2303-s25-project-1-triple-byte/z16sim.c" "CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj" "gcc" "CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj.d"
+  "D:/Uniii/Spring'25/Assembly/Project 1/csce-2303-s25-project-1-triple-byte/z16asm.c" "CMakeFiles/Assembly_Project_1.dir/z16asm.c.obj" "gcc" "CMakeFiles/Assembly_Project_1.dir/z16asm.c.obj.d"
+  "D:/Uniii/Spring'25/Assembly/Project 1/csce-2303-s25-project-1-triple-byte/z16sim.c" "CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj" "gcc" "CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

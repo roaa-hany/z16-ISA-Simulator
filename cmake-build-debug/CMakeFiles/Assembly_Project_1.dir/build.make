@@ -52,10 +52,10 @@ RM = "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe"
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte
+CMAKE_SOURCE_DIR = "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte\cmake-build-debug
+CMAKE_BINARY_DIR = "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\cmake-build-debug"
 
 # Include any dependencies generated for this target.
 include CMakeFiles/Assembly_Project_1.dir/depend.make
@@ -69,32 +69,48 @@ include CMakeFiles/Assembly_Project_1.dir/progress.make
 include CMakeFiles/Assembly_Project_1.dir/flags.make
 
 CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj: CMakeFiles/Assembly_Project_1.dir/flags.make
-CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj: C:/Users/marya/OneDrive/Documents/GitHub/csce-2303-s25-project-1-triple-byte/z16sim.c
+CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj: D:/Uniii/Spring'25/Assembly/Project\ 1/csce-2303-s25-project-1-triple-byte/z16sim.c
 CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj: CMakeFiles/Assembly_Project_1.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj -MF CMakeFiles\Assembly_Project_1.dir\z16sim.c.obj.d -o CMakeFiles\Assembly_Project_1.dir\z16sim.c.obj -c C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte\z16sim.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj -MF CMakeFiles\Assembly_Project_1.dir\z16sim.c.obj.d -o CMakeFiles\Assembly_Project_1.dir\z16sim.c.obj -c "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\z16sim.c"
 
 CMakeFiles/Assembly_Project_1.dir/z16sim.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Assembly_Project_1.dir/z16sim.c.i"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte\z16sim.c > CMakeFiles\Assembly_Project_1.dir\z16sim.c.i
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\z16sim.c" > CMakeFiles\Assembly_Project_1.dir\z16sim.c.i
 
 CMakeFiles/Assembly_Project_1.dir/z16sim.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Assembly_Project_1.dir/z16sim.c.s"
-	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte\z16sim.c -o CMakeFiles\Assembly_Project_1.dir\z16sim.c.s
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\z16sim.c" -o CMakeFiles\Assembly_Project_1.dir\z16sim.c.s
+
+CMakeFiles/Assembly_Project_1.dir/z16asm.c.obj: CMakeFiles/Assembly_Project_1.dir/flags.make
+CMakeFiles/Assembly_Project_1.dir/z16asm.c.obj: D:/Uniii/Spring'25/Assembly/Project\ 1/csce-2303-s25-project-1-triple-byte/z16asm.c
+CMakeFiles/Assembly_Project_1.dir/z16asm.c.obj: CMakeFiles/Assembly_Project_1.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/Assembly_Project_1.dir/z16asm.c.obj"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/Assembly_Project_1.dir/z16asm.c.obj -MF CMakeFiles\Assembly_Project_1.dir\z16asm.c.obj.d -o CMakeFiles\Assembly_Project_1.dir\z16asm.c.obj -c "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\z16asm.c"
+
+CMakeFiles/Assembly_Project_1.dir/z16asm.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/Assembly_Project_1.dir/z16asm.c.i"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\z16asm.c" > CMakeFiles\Assembly_Project_1.dir\z16asm.c.i
+
+CMakeFiles/Assembly_Project_1.dir/z16asm.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/Assembly_Project_1.dir/z16asm.c.s"
+	C:\PROGRA~1\JETBRA~1\CLION2~1.1\bin\mingw\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\z16asm.c" -o CMakeFiles\Assembly_Project_1.dir\z16asm.c.s
 
 # Object files for target Assembly_Project_1
 Assembly_Project_1_OBJECTS = \
-"CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj"
+"CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj" \
+"CMakeFiles/Assembly_Project_1.dir/z16asm.c.obj"
 
 # External object files for target Assembly_Project_1
 Assembly_Project_1_EXTERNAL_OBJECTS =
 
 Assembly_Project_1.exe: CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj
+Assembly_Project_1.exe: CMakeFiles/Assembly_Project_1.dir/z16asm.c.obj
 Assembly_Project_1.exe: CMakeFiles/Assembly_Project_1.dir/build.make
 Assembly_Project_1.exe: CMakeFiles/Assembly_Project_1.dir/linkLibs.rsp
 Assembly_Project_1.exe: CMakeFiles/Assembly_Project_1.dir/objects1.rsp
 Assembly_Project_1.exe: CMakeFiles/Assembly_Project_1.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable Assembly_Project_1.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\cmake-build-debug\CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable Assembly_Project_1.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\Assembly_Project_1.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -106,6 +122,6 @@ CMakeFiles/Assembly_Project_1.dir/clean:
 .PHONY : CMakeFiles/Assembly_Project_1.dir/clean
 
 CMakeFiles/Assembly_Project_1.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte\cmake-build-debug C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte\cmake-build-debug C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte\cmake-build-debug\CMakeFiles\Assembly_Project_1.dir\DependInfo.cmake "--color=$(COLOR)"
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte" "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte" "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\cmake-build-debug" "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\cmake-build-debug" "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\cmake-build-debug\CMakeFiles\Assembly_Project_1.dir\DependInfo.cmake" "--color=$(COLOR)"
 .PHONY : CMakeFiles/Assembly_Project_1.dir/depend
 

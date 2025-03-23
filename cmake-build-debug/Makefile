@@ -56,10 +56,10 @@ RM = "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe"
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte
+CMAKE_SOURCE_DIR = "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte\cmake-build-debug
+CMAKE_BINARY_DIR = "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\cmake-build-debug"
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -86,9 +86,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte\cmake-build-debug\CMakeFiles C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte\cmake-build-debug\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\cmake-build-debug\CMakeFiles" "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\cmake-build-debug\\CMakeFiles\progress.marks"
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\cmake-build-debug\CMakeFiles" 0
 .PHONY : all
 
 # The main clean target
@@ -128,6 +128,30 @@ Assembly_Project_1/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Assembly_Project_1.dir\build.make CMakeFiles/Assembly_Project_1.dir/build
 .PHONY : Assembly_Project_1/fast
 
+z16asm.obj: z16asm.c.obj
+.PHONY : z16asm.obj
+
+# target to build an object file
+z16asm.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Assembly_Project_1.dir\build.make CMakeFiles/Assembly_Project_1.dir/z16asm.c.obj
+.PHONY : z16asm.c.obj
+
+z16asm.i: z16asm.c.i
+.PHONY : z16asm.i
+
+# target to preprocess a source file
+z16asm.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Assembly_Project_1.dir\build.make CMakeFiles/Assembly_Project_1.dir/z16asm.c.i
+.PHONY : z16asm.c.i
+
+z16asm.s: z16asm.c.s
+.PHONY : z16asm.s
+
+# target to generate assembly for a file
+z16asm.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Assembly_Project_1.dir\build.make CMakeFiles/Assembly_Project_1.dir/z16asm.c.s
+.PHONY : z16asm.c.s
+
 z16sim.obj: z16sim.c.obj
 .PHONY : z16sim.obj
 
@@ -161,6 +185,9 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... Assembly_Project_1
+	@echo ... z16asm.obj
+	@echo ... z16asm.i
+	@echo ... z16asm.s
 	@echo ... z16sim.obj
 	@echo ... z16sim.i
 	@echo ... z16sim.s

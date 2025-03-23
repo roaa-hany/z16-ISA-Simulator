@@ -2,6 +2,8 @@ file(REMOVE_RECURSE
   "Assembly_Project_1.exe"
   "Assembly_Project_1.exe.manifest"
   "Assembly_Project_1.pdb"
+  "CMakeFiles/Assembly_Project_1.dir/z16asm.c.obj"
+  "CMakeFiles/Assembly_Project_1.dir/z16asm.c.obj.d"
   "CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj"
   "CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj.d"
   "libAssembly_Project_1.dll.a"

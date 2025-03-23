@@ -53,10 +53,10 @@ RM = "C:\Program Files\JetBrains\CLion 2024.2.1\bin\cmake\win\x64\bin\cmake.exe"
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte
+CMAKE_SOURCE_DIR = "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte"
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte\cmake-build-debug
+CMAKE_BINARY_DIR = "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\cmake-build-debug"
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -80,14 +80,14 @@ clean: CMakeFiles/Assembly_Project_1.dir/clean
 CMakeFiles/Assembly_Project_1.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Assembly_Project_1.dir\build.make CMakeFiles/Assembly_Project_1.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Assembly_Project_1.dir\build.make CMakeFiles/Assembly_Project_1.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte\cmake-build-debug\CMakeFiles --progress-num=1,2 "Built target Assembly_Project_1"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\cmake-build-debug\CMakeFiles" --progress-num=1,2,3 "Built target Assembly_Project_1"
 .PHONY : CMakeFiles/Assembly_Project_1.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Assembly_Project_1.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte\cmake-build-debug\CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\cmake-build-debug\CMakeFiles" 3
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/Assembly_Project_1.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\marya\OneDrive\Documents\GitHub\csce-2303-s25-project-1-triple-byte\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start "D:\Uniii\Spring'25\Assembly\Project 1\csce-2303-s25-project-1-triple-byte\cmake-build-debug\CMakeFiles" 0
 .PHONY : CMakeFiles/Assembly_Project_1.dir/rule
 
 # Convenience name for target.

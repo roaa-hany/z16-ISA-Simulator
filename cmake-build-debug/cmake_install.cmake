@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/marya/OneDrive/Documents/GitHub/csce-2303-s25-project-1-triple-byte
+# Install script for directory: D:/Uniii/Spring'25/Assembly/Project 1/csce-2303-s25-project-1-triple-byte
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/marya/OneDrive/Documents/GitHub/csce-2303-s25-project-1-triple-byte/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "D:/Uniii/Spring'25/Assembly/Project 1/csce-2303-s25-project-1-triple-byte/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -32,7 +32,7 @@
  *Things to note:
  *SLL, SRL, SRA are implemented in a way that can shift only up to 15 bits only.
  *regs are declared to be unsigned by default.
- *J instructions are assumed to be all relative. 
+ *J instructions are assumed to be all relative.
  *
  *
  */
@@ -99,7 +99,6 @@ void disassemble(uint16_t inst, uint16_t pc, char *buf, size_t bufSize) {
             else
                 snprintf(buf, bufSize, "Unknown R-type instruction");
             break;
-
         }
         case 0x1: { // I-type: [15:9] imm[6:0] | [8:6] rd/rs1 | [5:3] funct3 | [2:0] opcode
             uint8_t imm7 = (inst >> 9) & 0x7F;
@@ -214,12 +213,29 @@ void disassemble(uint16_t inst, uint16_t pc, char *buf, size_t bufSize) {
                 snprintf(buf, bufSize, "Unknown jump instruction");
             break;
         }
-        // complete the rest
+        case 0x6: { // U-type (upper immediate): [15] f | [14:9] Imm[15:10] | [8:6] rd | [5:3] Imm[9:7] | [2:0] opcode
+            uint8_t imm15_10 = (inst >> 9) & 0x3F;
+            uint8_t rd     = (inst >> 6) & 0x7;
+            uint8_t f      = (inst >> 15) & 0x1;
+            uint8_t imm9_7 = (inst >> 3) & 0x7;
+            int8_t imm = (imm15_10 << 3) | (imm9_7);
 
+            if(f == 0)
+                snprintf(buf, bufSize, "LUI x%d, 0x%X", rd, imm);
+            else if(f == 1)
+                snprintf(buf, bufSize, "AUIPC x%d, 0x%X", rd, imm);
+            else
+                snprintf(buf, bufSize, "Unknown U instruction");
+        }
+        case 0x7: { // U-type (ecall): [15:6] Service | [5:3] funct3 | [2:0] opcode
+            uint8_t funct3 = (inst >> 3) & 0x7;
+            uint16_t service = (inst >> 6) & 0x3FF;
+            if(funct3 == 0x0)
+                snprintf(buf, bufSize, "ecall");
+            else
+                snprintf(buf, bufSize, "Unknown ecall instruction");
 
-
-
-
+        }
 
         default:
             snprintf(buf, bufSize, "Unknown opcode");
@@ -410,11 +426,41 @@ int executeInstruction(uint16_t inst) {
             break;
         }
         case 0x6: { // U-type
-            // your code goes here
+            uint8_t imm15_10 = (inst >> 9) & 0x3F;
+            uint8_t rd     = (inst >> 6) & 0x7;
+            uint8_t f      = (inst >> 15) & 0x1;
+            uint8_t imm9_7 = (inst >> 3) & 0x7;
+            int16_t imm = (imm15_10 << 3) | (imm9_7);
+
+            if (f == 0) { // LUI
+                regs[rd] = imm << 8;
+            } else if (f == 1) { // AUIPC
+                pcUpdated=1;
+                regs[rd] = pc + (imm << 8);
+            }
             break;
         }
         case 0x7: { // System instruction (ecall)
-            // your code goes here
+            uint8_t funct3 = (inst >> 3) & 0x7;
+            uint16_t service = (inst >> 6) & 0x3FF;
+
+            if (funct3 == 0) { // ecall
+
+                if (service == 0x1) { // Print integer
+                    printf("%d\n", regs[0]);
+                }
+                else if (service == 0x5) { // Print string
+                    char *str = (char*)&memory[regs[0]];
+                    printf("%s\n", str);
+                }
+                else if (service == 3) { // Terminate simulation
+                    printf("Simulation terminated.\n");
+                    exit(0);
+                }
+                else {
+                    printf("Unknown ecall: %d\n", service);
+                }
+            }
             break;
         }
         default:
