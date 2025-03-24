@@ -1,0 +1,41 @@
+Line   Address   Machine Code    Source
+-----------------------------------------------------
+   1                          # Add some comments to describe the program
+   2                          
+   3                          # the TEXT Section
+   4                              .text
+   5   0x0000                      .org    0
+   6   0x0000                  main:
+   7   0x0000                      # Your code goes here
+   8   0x0000                      # you can use the ABI register names
+   9   0x0000                      # Also, you may end the line with a comment
+  10   0x0000                  
+  11   0x0000   33B9             li      a0, 25      # A sample instruction
+  12   0x0002   33B9             li      a0, 25      # A sample instruction
+  13   0x0004   33B9             li      a0, 25      # A sample instruction
+  14   0x0006   33B9             li      a0, 25      # A sample instruction
+  15   0x0008                  
+  16   0x0008                  
+  17   0x0008                      # A sample label
+  18   0x0008                      # A label cannot be followed by anything
+  19   0x0008                  L1:
+  20   0x0008                  
+  21   0x0008                     # terminate the program
+  22   0x0008                  exit:
+  23   0x0008   0037             ecall   3
+  24   0x000A                  
+  25   0x000A                  # The DATA Section
+  26   0x000A                      .data
+  27   0x0000                      # if you don't provide a starting location, the DATA Section
+  28   0x0000                      # starts immediately after the TEXT Section.
+  29   0x0100                      .org    0x100
+  30   0x0100                  
+  31   0x0100                      # Some data definitions
+  32   0x0100                  str:   
+  33   0x0100   6822 6C65 6F6C 7720 726F 646C 21      .asciiz "hello world!"
+  34   0x010D                  A:
+  35   0x010D   32               .byte   50
+  36   0x010E                  B:
+  37   0x010E   23A0 01F4 7530      .word   0x23A0, 500, 30000
+  38   0x0114                  C:
+  39   0x0114                      .space  200

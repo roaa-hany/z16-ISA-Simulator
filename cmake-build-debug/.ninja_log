@@ -1,5 +1,6 @@
 # ninja log v6
-2	870	7641793123147105	CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj	514c1a840dc78dcd
-880	2509	7641793131949191	Assembly_Project_1.exe	a5c516eb7b2f6ddd
 4	865	7641795017850030	CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj	514c1a840dc78dcd
 865	2540	7641795026465103	Assembly_Project_1.exe	a5c516eb7b2f6ddd
+7	666	7645561975397714	CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj	514c1a840dc78dcd
+89	1093	7645561976223678	CMakeFiles/Assembly_Project_1.dir/z16asm.c.obj	6b9af6d88df5e4b9
+1093	2051	7645561986254827	Assembly_Project_1.exe	2058bcede45acb7
