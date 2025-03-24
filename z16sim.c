@@ -32,7 +32,7 @@
  *Things to note:
  *SLL, SRL, SRA are implemented in a way that can shift only up to 15 bits only.
  *regs are declared to be unsigned by default.
- *J instructions are assumed to be all relative. 
+ *J instructions are assumed to be all relative.
  *
  *
  */
