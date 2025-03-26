@@ -230,10 +230,26 @@ void disassemble(uint16_t inst, uint16_t pc, char *buf, size_t bufSize) {
         case 0x7: { // U-type (ecall): [15:6] Service | [5:3] funct3 | [2:0] opcode
             uint8_t funct3 = (inst >> 3) & 0x7;
             uint16_t service = (inst >> 6) & 0x3FF;
+            
             if(funct3 == 0x0)
-                snprintf(buf, bufSize, "ecall");
+                switch(service) {
+                    case 1:
+                        snprintf(buf, bufSize, "ecall 1");
+                    break;
+                    case 5:
+                        snprintf(buf, bufSize, "ecall 5");
+                    break;
+                    case 3:
+                        snprintf(buf, bufSize, "ecall 3");
+                    break;
+                    default:
+                        snprintf(buf, bufSize, "ecall %d", service);
+                    break;
+                }
             else
                 snprintf(buf, bufSize, "Unknown ecall instruction");
+
+                 break;
 
         }
 
