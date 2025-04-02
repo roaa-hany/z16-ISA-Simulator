@@ -205,8 +205,11 @@ void disassemble(uint16_t inst, uint16_t pc, char *buf, size_t bufSize) {
             imm = (imm4_9 & 0x20) ? (imm | 0xFC00) : imm; // Sign extend the immediate
             int16_t branchTarget = pc + imm; // Get the jump target
 
-            if(f == 0)
+            if(f == 0) {
                 snprintf(buf, bufSize, "j 0x%04X", branchTarget);
+                // printf("The branch in here is: ");
+                // printf("%d\n",branchTarget);
+            }
             else if(f == 1)
                 snprintf(buf, bufSize, "jal 0x%04X", branchTarget);
             else
@@ -234,7 +237,8 @@ void disassemble(uint16_t inst, uint16_t pc, char *buf, size_t bufSize) {
             // U-type (ecall): [15:6] Service | [5:3] funct3 | [2:0] opcode
             uint8_t funct3 = (inst >> 3) & 0x7;
             uint16_t service = (inst >> 6) & 0x3FF;
-            
+            snprintf(buf, bufSize, "ecall");
+
             if(funct3 == 0x0) {
                 switch(service) {
                     case 1: {
@@ -259,9 +263,10 @@ void disassemble(uint16_t inst, uint16_t pc, char *buf, size_t bufSize) {
                 snprintf(buf, bufSize, "Unknown ecall instruction");
                 break;
             }
+            break;
         }
         default: {
-            snprintf(buf, bufSize, "Unknown opcode");
+            snprintf(buf, bufSize, "unknown opcode");
             break;
         }
     }
@@ -276,9 +281,11 @@ void disassemble(uint16_t inst, uint16_t pc, char *buf, size_t bufSize) {
 int executeInstruction(uint16_t inst) {
     //anding with 7 to get the last three bits -> opcode
     uint8_t opcode = inst & 0x7;
-    if(memory[pc] == 0) {
-        return 0;
-    }
+    // if(memory[pc] == 0) {
+    //     printf("memory == 0");
+    //     printf("%d/n", pc);
+    //     return 0;
+    // }
     int pcUpdated = 0; // flag: if instruction updated PC directly
     switch(opcode) {
         case 0x0: { // R-type
@@ -361,6 +368,9 @@ int executeInstruction(uint16_t inst) {
         case 0x2: { // B-type (branch)
             int8_t imm = (inst >> 12) & 0xF; //the imm is signed
             imm = imm<<1; //the imm is from bit 1 to bit 4
+            if (imm & 0x10) {  // Check if the 4th bit (MSB in 4-bit) is 1 (negative number)
+                imm |= 0xF0;   // Sign extend by setting the higher bits (8 bits in this case) to 1
+            }
             uint8_t rs2     = (inst >> 9) & 0x7;
             uint8_t rs1  = (inst >> 6) & 0x7;
             uint8_t funct3  = (inst >> 3) & 0x7;
@@ -377,11 +387,15 @@ int executeInstruction(uint16_t inst) {
             else if(funct3==0x2 && regs[rs1] == 0)//bz
             {
                 pcUpdated=1;
+                printf("The immediate is: ");
+                printf("%d\n", imm);
                 pc+=imm;
             }
             else if(funct3==0x3 && regs[rs1] != 0)//bnz
             {
                 pcUpdated=1;
+                printf("The immediate is: ");
+                printf("%d\n", imm);
                 pc+=imm;
             }
             else if(funct3==0x4 && (int16_t)regs[rs1] < (int16_t)regs[rs2])//blt
@@ -434,21 +448,37 @@ int executeInstruction(uint16_t inst) {
         }
         //note that there is a typo in the instructions table on github, I[8:4] should be 6 bits instead
         case 0x5: { // J-type (jump)
+
+            uint8_t imm4_9 = (inst >> 9) & 0x3F;
+            uint8_t rd     = (inst >> 6) & 0x7;  // rd is not printed
+            uint8_t f      = (inst >> 15) & 0x1;
+            uint8_t imm1_3 = (inst >> 3) & 0x7;
+            int16_t imm = (imm4_9 << 4) | (imm1_3 << 1);
+            imm = (imm4_9 & 0x20) ? (imm | 0xFC00) : imm; // Sign extend the immediate
+            int16_t branchTarget = pc + imm; // Get the jump target
+
+
             // your code goes here
-            uint8_t imm4_9  = (inst >> 9) & 0x3F;
-            uint8_t rd  = (inst >> 6) & 0x7;
-            int f = inst >> 15;
-            uint8_t imm1_3  = (inst >> 3) & 0x7;
-            int16_t imm=imm4_9<<4;
-            imm=imm+(imm1_3<<1);
+            // uint8_t imm4_9  = (inst >> 9) & 0x3F;
+            //
+            // uint8_t rd  = (inst >> 6) & 0x7;
+            // int f = inst >> 15;
+            // uint8_t imm1_3  = (inst >> 3) & 0x7;
+            // int16_t imm=imm4_9<<4;
+            // imm=imm+(imm1_3<<1);
             if(f==1) { //jal
                 pcUpdated=1;
                 regs[1]=pc+2; //saves the return address in x1
-                pc+=imm;
+                pc=branchTarget;
             }
             else if(f==0) { //j
                 pcUpdated=1;
-                pc+=imm;
+                // printf("J executes, with target address: ");
+                // printf("%d\n",branchTarget);
+                // printf( "j 0x%04X", branchTarget);
+                // printf("The branch in here 2 is: ");
+                // printf("%d\n",branchTarget);
+                pc=branchTarget;
             }
             break;
         }
@@ -459,11 +489,20 @@ int executeInstruction(uint16_t inst) {
             uint8_t imm9_7 = (inst >> 3) & 0x7;
             int16_t imm = (imm15_10 << 3) | (imm9_7);
 
-            if (f == 0) { // LUI
-                regs[rd] = imm << 8;
-            } else if (f == 1) { // AUIPC
-                pcUpdated=1;
-                regs[rd] = pc + (imm << 8);
+            if (f == 0) { // LUI (Load Upper Immediate)
+                    int16_t extended_imm = imm << 7; // Shift by 7
+
+                    // If the sign bit is set (negative number), sign-extend
+                    // if (imm & 0x40) { // Check if the 7th bit (sign bit in 7-bit immediate) is set
+                    //     extended_imm |= 0xFFFFF000;  // Sign-extend by setting the upper 20 bits
+                    // }
+
+                    // Store the result in the register
+                    regs[rd] = extended_imm;
+
+            }
+            else if (f == 1) { // AUIPC
+                regs[rd] = pc + (imm << 7);
             }
             break;
         }
@@ -477,9 +516,30 @@ int executeInstruction(uint16_t inst) {
                     printf("%d\n", regs[6]);
                 }
                 else if (service == 0x5) { // Print string
-                    char *str = (char*)&memory[regs[6]];
-                    printf("%s\n", str);
+                    // Check that regs[6] is a valid address in memory
+                    if (regs[6] < 0 || regs[6] >= MEM_SIZE) {
+                        printf("Invalid memory address.\n");
+                        return 0; // Or handle error appropriately
+                    }
+
+                    // Manually set a string in memory
+                    // memcpy(&memory[regs[6]], "abcdefghi", 9);  // "abcdefghi" + null terminator
+
+                    // Fetch and print the string as usual
+                    char *str = (char*)&memory[regs[6]];  // Fetch the string address
+
+                    // // Check if the string is null-terminated and print each byte
+                    // for (int i = 0; ; i++) {
+                    //     printf("Byte %d: 0x%02x, Char: '%c'\n", i, str[i], str[i]);
+                    //     if (str[i] == '\0') break;  // Break if null terminator is found
+                    // }
+
+                    printf("\n");
+
+                    // Print the string using %s if it's correctly null-terminated
+                    printf("String: %s\n", str);
                 }
+
                 else if (service == 3) { // Terminate simulation
                     printf("Simulation terminated.\n");
                     exit(0);
@@ -540,8 +600,9 @@ int main(int argc, char **argv) {
         uint16_t inst = memory[pc] | (memory[pc+1] << 8);
         disassemble(inst, pc, disasmBuf, sizeof(disasmBuf));
         printf("0x%04X: %04X    %s\n", pc, inst, disasmBuf);
-        if(!executeInstruction(inst))
+        if(!executeInstruction(inst)) {
             break;
+        }
         // Terminate if PC goes out of bounds
         if(pc >= MEM_SIZE) break;
     }

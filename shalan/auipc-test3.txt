@@ -1,0 +1,12 @@
+.org 0x0000
+.text
+start:
+    lui   a0, 243  #11110011 in binary
+    ecall 1
+    auipc a1, 212 
+    mv    a0, a1
+    jal   a0, label
+
+label:
+    ecall 1
+    ecall 3

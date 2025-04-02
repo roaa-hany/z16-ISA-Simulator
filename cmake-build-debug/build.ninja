@@ -65,6 +65,14 @@ build CMakeFiles/Assembly_Project_1.dir/z16asm.c.obj: C_COMPILER__Assembly_Proje
   TARGET_COMPILE_PDB = CMakeFiles\Assembly_Project_1.dir\
   TARGET_PDB = Assembly_Project_1.pdb
 
+build CMakeFiles/Assembly_Project_1.dir/z16asm2.c.obj: C_COMPILER__Assembly_Project_1_unscanned_Debug D$:/spring-2025/Assembly/Assembly-Project-1/z16asm2.c || cmake_object_order_depends_target_Assembly_Project_1
+  DEP_FILE = CMakeFiles\Assembly_Project_1.dir\z16asm2.c.obj.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\Assembly_Project_1.dir
+  OBJECT_FILE_DIR = CMakeFiles\Assembly_Project_1.dir
+  TARGET_COMPILE_PDB = CMakeFiles\Assembly_Project_1.dir\
+  TARGET_PDB = Assembly_Project_1.pdb
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Assembly_Project_1
@@ -73,7 +81,7 @@ build CMakeFiles/Assembly_Project_1.dir/z16asm.c.obj: C_COMPILER__Assembly_Proje
 #############################################
 # Link the executable Assembly_Project_1.exe
 
-build Assembly_Project_1.exe: C_EXECUTABLE_LINKER__Assembly_Project_1_Debug CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj CMakeFiles/Assembly_Project_1.dir/z16asm.c.obj
+build Assembly_Project_1.exe: C_EXECUTABLE_LINKER__Assembly_Project_1_Debug CMakeFiles/Assembly_Project_1.dir/z16sim.c.obj CMakeFiles/Assembly_Project_1.dir/z16asm.c.obj CMakeFiles/Assembly_Project_1.dir/z16asm2.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\Assembly_Project_1.dir

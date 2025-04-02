@@ -1,3 +1,3 @@
-D:/Uniii/Spring'25/Assembly/Project 1/csce-2303-s25-project-1-triple-byte/cmake-build-debug/CMakeFiles/Assembly_Project_1.dir
-D:/Uniii/Spring'25/Assembly/Project 1/csce-2303-s25-project-1-triple-byte/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/Uniii/Spring'25/Assembly/Project 1/csce-2303-s25-project-1-triple-byte/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+D:/spring-2025/Assembly/Assembly-Project-1/cmake-build-debug/CMakeFiles/Assembly_Project_1.dir
+D:/spring-2025/Assembly/Assembly-Project-1/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/spring-2025/Assembly/Assembly-Project-1/cmake-build-debug/CMakeFiles/rebuild_cache.dir

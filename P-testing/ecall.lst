@@ -1,0 +1,21 @@
+Line   Address   Machine Code    Source
+-----------------------------------------------------
+   1                          .text
+   2   0x0000                      .org    0
+   3   0x0000                  main:
+   4   0x0000   0196             lui     a0, %hi(0x100)
+   5   0x0002   0047             ecall   1
+   6   0x0004   0781             addi    a0, %lo(0x3)
+   7   0x0006   0047             ecall   1
+   8   0x0008   0147             ecall   5               # service 5 to print a string
+   9   0x000A                  exit:
+  10   0x000A   00C7             ecall   3
+  11   0x000C                  
+  12   0x000C                  
+  13   0x000C                      .data
+  14   0x0100                      .org    0x100
+  15   0x0100                  
+  16   0x0100                  num:
+  17   0x0100   3722 30            .asciiz "70"
+  18   0x0103                  str:   
+  19   0x0103   6172 746F 7561 7261 6120 6268 7961 796E 79      .asciiz raotauar ahbaynyy

@@ -1,0 +1,21 @@
+Line   Address   Machine Code    Source
+-----------------------------------------------------
+   1                          # Add some comments to describe the program
+   2                          
+   3                          # the TEXT Section
+   4                              .text
+   5   0x0000                      .org    0
+   6   0x0000                  main:
+   7   0x0000                  
+   8   0x0000   2BB9             li a0, 21      # A sample instruction
+   9   0x0002   80D5             jal x3, L1     # jump to L1
+  10   0x0004   0581             addi a0, 2     # This instruction should be skipped
+  11   0x0006                  
+  12   0x0006                  L1:
+  13   0x0006   0047             ecall 1        # should print 21
+  14   0x0008                  
+  15   0x0008                  exit:
+  16   0x0008   00C7             ecall 3
+  17   0x000A                  
+  18   0x000A                      .data
+  19   0x0100                      .org    0x100

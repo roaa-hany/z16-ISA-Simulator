@@ -1,0 +1,14 @@
+Line   Address   Machine Code    Source
+-----------------------------------------------------
+   1                          .org 0x0000
+   2                          .text
+   3   0x0000                  start:
+   4   0x0000   01B9             li   a0, 0          ; Initialize sum = 0
+   5   0x0002   03F9             li   a1, 1          ; Initialize counter = 1
+   6   0x0004   1779             li   t1, 11         ; Limit = 11 (loop until counter equals 11)
+   7   0x0006                  loop:
+   8   0x0006   0F80             add  a0, a1         ; sum = sum + counter
+   9   0x0008   03C1             addi a1, 1         ; counter++
+  10   0x000A   DBCA             bne  a1, t1, loop   ; If counter != 11, continue looping
+  11   0x000C   0047             ecall 1             ; ecall 1: Print the integer in a0 (expected output: 55)
+  12   0x000E   00C7             ecall 3             ; ecall 3: Terminate the program

@@ -1,0 +1,17 @@
+Line   Address   Machine Code    Source
+-----------------------------------------------------
+   1                              .text
+   2   0x0000                      .org    0
+   3   0x0000                  main:
+   4   0x0000   01B9             li a0, 0
+   5   0x0002   0A39             li t0, 5
+   6   0x0004   3192             bz a0, else
+   7   0x0006   0047             ecall 1
+   8   0x0008                  label1:
+   9   0x0008   F601         addi t0, -5
+  10   0x000A                  else:
+  11   0x000A   0401             addi t0, 2
+  12   0x000C   0047             ecall 1
+  13   0x000E   00C7             ecall 3
+  14   0x0010                  
+  15   0x0010                  

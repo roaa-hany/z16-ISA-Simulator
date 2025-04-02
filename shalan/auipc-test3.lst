@@ -1,0 +1,14 @@
+Line   Address   Machine Code    Source
+-----------------------------------------------------
+   1                          .org 0x0000
+   2                          .text
+   3   0x0000                  start:
+   4   0x0000   3D9E             lui   a0, 243  #11110011 in binary
+   5   0x0002   0047             ecall 1
+   6   0x0004   B5E6             auipc a1, 212 
+   7   0x0006   0FB8             mv    a0, a1
+   8   0x0008   818D             jal   a0, label
+   9   0x000A                  
+  10   0x000A                  label:
+  11   0x000A   0047             ecall 1
+  12   0x000C   00C7             ecall 3
