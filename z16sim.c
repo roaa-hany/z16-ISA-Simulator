@@ -214,48 +214,56 @@ void disassemble(uint16_t inst, uint16_t pc, char *buf, size_t bufSize) {
             break;
         }
         case 0x6: { // U-type (upper immediate): [15] f | [14:9] Imm[15:10] | [8:6] rd | [5:3] Imm[9:7] | [2:0] opcode
-            uint8_t imm15_10 = (inst >> 9) & 0x3F;
             uint8_t rd     = (inst >> 6) & 0x7;
             uint8_t f      = (inst >> 15) & 0x1;
-            uint8_t imm9_7 = (inst >> 3) & 0x7;
-            int8_t imm = (imm15_10 << 3) | (imm9_7);
+
+            uint16_t imm15_10 = (inst >> 9) & 0x3F;
+            uint16_t imm9_7   = (inst >> 3) & 0x7;
+
+            uint16_t imm = ((imm15_10 << 3) | imm9_7) << 7;
 
             if(f == 0)
-                snprintf(buf, bufSize, "LUI x%d, 0x%X", rd, imm);
+                snprintf(buf, bufSize, "lui %s, 0x%X", regNames[rd], imm);
             else if(f == 1)
-                snprintf(buf, bufSize, "AUIPC x%d, 0x%X", rd, imm);
+                snprintf(buf, bufSize, "AUIPC %s, 0x%X", regNames[rd], imm);
             else
                 snprintf(buf, bufSize, "Unknown U instruction");
+            break;
         }
-        case 0x7: { // U-type (ecall): [15:6] Service | [5:3] funct3 | [2:0] opcode
+        case 0x7: {
+            // U-type (ecall): [15:6] Service | [5:3] funct3 | [2:0] opcode
             uint8_t funct3 = (inst >> 3) & 0x7;
             uint16_t service = (inst >> 6) & 0x3FF;
             
-            if(funct3 == 0x0)
+            if(funct3 == 0x0) {
                 switch(service) {
-                    case 1:
+                    case 1: {
                         snprintf(buf, bufSize, "ecall 1");
-                    break;
-                    case 5:
+                        break;
+                    }
+                    case 5: {
                         snprintf(buf, bufSize, "ecall 5");
-                    break;
-                    case 3:
+                        break;
+                    }
+                    case 3: {
                         snprintf(buf, bufSize, "ecall 3");
-                    break;
-                    default:
-                        snprintf(buf, bufSize, "ecall %d", service);
-                    break;
+                        break;
+                    }
+                    default: {
+                        snprintf(buf, bufSize, "Unknown ecall instruction");
+                        break;
+                    }
                 }
-            else
+            }
+            else {
                 snprintf(buf, bufSize, "Unknown ecall instruction");
-
-                 break;
-
+                break;
+            }
         }
-
-        default:
+        default: {
             snprintf(buf, bufSize, "Unknown opcode");
             break;
+        }
     }
 }
 
@@ -268,6 +276,9 @@ void disassemble(uint16_t inst, uint16_t pc, char *buf, size_t bufSize) {
 int executeInstruction(uint16_t inst) {
     //anding with 7 to get the last three bits -> opcode
     uint8_t opcode = inst & 0x7;
+    if(memory[pc] == 0) {
+        return 0;
+    }
     int pcUpdated = 0; // flag: if instruction updated PC directly
     switch(opcode) {
         case 0x0: { // R-type
@@ -463,10 +474,10 @@ int executeInstruction(uint16_t inst) {
             if (funct3 == 0) { // ecall
 
                 if (service == 0x1) { // Print integer
-                    printf("%d\n", regs[0]);
+                    printf("%d\n", regs[6]);
                 }
                 else if (service == 0x5) { // Print string
-                    char *str = (char*)&memory[regs[0]];
+                    char *str = (char*)&memory[regs[6]];
                     printf("%s\n", str);
                 }
                 else if (service == 3) { // Terminate simulation
@@ -479,9 +490,10 @@ int executeInstruction(uint16_t inst) {
             }
             break;
         }
-        default:
+        default: {
             printf("Unknown instruction opcode 0x%X\n", opcode);
-            break;
+            return 0;
+        }
     }
     if(!pcUpdated)
         pc += 2; // default: move to next instruction

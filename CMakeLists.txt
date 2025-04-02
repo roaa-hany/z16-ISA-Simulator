@@ -5,4 +5,5 @@ set(CMAKE_C_STANDARD 11)
 
 add_executable(Assembly_Project_1
     z16sim.c
-        z16asm.c)
+        z16asm.c
+        z16asm2.c)

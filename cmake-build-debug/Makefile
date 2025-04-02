@@ -152,6 +152,30 @@ z16asm.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Assembly_Project_1.dir\build.make CMakeFiles/Assembly_Project_1.dir/z16asm.c.s
 .PHONY : z16asm.c.s
 
+z16asm2.obj: z16asm2.c.obj
+.PHONY : z16asm2.obj
+
+# target to build an object file
+z16asm2.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Assembly_Project_1.dir\build.make CMakeFiles/Assembly_Project_1.dir/z16asm2.c.obj
+.PHONY : z16asm2.c.obj
+
+z16asm2.i: z16asm2.c.i
+.PHONY : z16asm2.i
+
+# target to preprocess a source file
+z16asm2.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Assembly_Project_1.dir\build.make CMakeFiles/Assembly_Project_1.dir/z16asm2.c.i
+.PHONY : z16asm2.c.i
+
+z16asm2.s: z16asm2.c.s
+.PHONY : z16asm2.s
+
+# target to generate assembly for a file
+z16asm2.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Assembly_Project_1.dir\build.make CMakeFiles/Assembly_Project_1.dir/z16asm2.c.s
+.PHONY : z16asm2.c.s
+
 z16sim.obj: z16sim.c.obj
 .PHONY : z16sim.obj
 
@@ -188,6 +212,9 @@ help:
 	@echo ... z16asm.obj
 	@echo ... z16asm.i
 	@echo ... z16asm.s
+	@echo ... z16asm2.obj
+	@echo ... z16asm2.i
+	@echo ... z16asm2.s
 	@echo ... z16sim.obj
 	@echo ... z16sim.i
 	@echo ... z16sim.s
