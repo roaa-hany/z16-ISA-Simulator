@@ -516,28 +516,56 @@ int executeInstruction(uint16_t inst) {
                     printf("%d\n", regs[6]);
                 }
                 else if (service == 0x5) { // Print string
-                    // Check that regs[6] is a valid address in memory
+                    // // Check that regs[6] is a valid address in memory
+                    // if (regs[6] < 0 || regs[6] >= MEM_SIZE) {
+                    //     printf("Invalid memory address.\n");
+                    //     return 0; // Or handle error appropriately
+                    // }
+                    //
+                    // // Manually set a string in memory
+                    // // memcpy(&memory[regs[6]], "abcdefghi", 9);  // "abcdefghi" + null terminator
+                    //
+                    // // Fetch and print the string as usual
+                    // char *str = (char*)&memory[regs[6]];  // Fetch the string address
+                    //
+                    // // // Check if the string is null-terminated and print each byte
+                    // // for (int i = 0; ; i++) {
+                    // //     printf("Byte %d: 0x%02x, Char: '%c'\n", i, str[i], str[i]);
+                    // //     if (str[i] == '\0') break;  // Break if null terminator is found
+                    // // }
+                    //
+                    // printf("\n");
+                    //
+                    // // Print the string using %s if it's correctly null-terminated
+                    // printf("String: %s\n", str);
+
+                    // Check that regs[6] (a0) is a valid address in memory
                     if (regs[6] < 0 || regs[6] >= MEM_SIZE) {
                         printf("Invalid memory address.\n");
-                        return 0; // Or handle error appropriately
+                        return 0;
                     }
 
-                    // Manually set a string in memory
-                    // memcpy(&memory[regs[6]], "abcdefghi", 9);  // "abcdefghi" + null terminator
-
-                    // Fetch and print the string as usual
-                    char *str = (char*)&memory[regs[6]];  // Fetch the string address
-
-                    // // Check if the string is null-terminated and print each byte
-                    // for (int i = 0; ; i++) {
-                    //     printf("Byte %d: 0x%02x, Char: '%c'\n", i, str[i], str[i]);
-                    //     if (str[i] == '\0') break;  // Break if null terminator is found
-                    // }
-
+                    //  Print each byte in hex and as a character --> debug
+                    printf("Memory dump at 0x%04X: ", regs[6]);
+                    for (int i = 0; i < 20; i++) {
+                        printf("%02X(%c) ", memory[regs[6]+i], isprint(memory[regs[6]+i]) ? memory[regs[6]+i] : '.');
+                    }
                     printf("\n");
 
-                    // Print the string using %s if it's correctly null-terminated
-                    printf("String: %s\n", str);
+                    // print the string character by character, but skip the first character "
+                    uint16_t addr = regs[6];
+
+                    if (memory[addr] == '"') {
+                        addr++;
+                    }
+
+                    // Print the rest of the string
+                    while (addr < MEM_SIZE && memory[addr] != '\0') {
+                        printf("%c", memory[addr]);
+                        addr++;
+                    }
+                    printf("\n");
+
                 }
 
                 else if (service == 3) { // Terminate simulation

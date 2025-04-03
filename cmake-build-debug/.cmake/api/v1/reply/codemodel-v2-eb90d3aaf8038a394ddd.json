@@ -49,8 +49,8 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "D:/spring-2025/Assembly/Assembly-Project-1/cmake-build-debug",
-		"source" : "D:/spring-2025/Assembly/Assembly-Project-1"
+		"build" : "C:/Users/marya/OneDrive/Documents/GitHub/csce-2303-s25-project-1-triple-byte/cmake-build-debug",
+		"source" : "C:/Users/marya/OneDrive/Documents/GitHub/csce-2303-s25-project-1-triple-byte"
 	},
 	"version" : 
 	{
