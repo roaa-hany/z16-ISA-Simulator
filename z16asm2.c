@@ -648,7 +648,7 @@
                          fprintf(stderr, "Error on line %d: Undefined label '%s'\n", line->lineNo, token);
                          exit(1);
                      }
-                     offset = (sym->address - (line->address + 2)) >> 1;
+                     offset = (sym->address - (line->address)) >> 1;
                      if(offset < -8 || offset > 7) {
                          fprintf(stderr, "Error on line %d: Branch offset out of range\n", line->lineNo);
                          exit(1);

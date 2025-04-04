@@ -8,7 +8,7 @@ Line   Address   Machine Code    Source
    6   0x0004   4C18             srl t0, a0      # Logical right shift (5 >> 2)
    7   0x0006   2D58             sll t1, a0      # Logical left shift (5 << 2)
    8   0x0008                  
-   9   0x0008   3A22             blt t0, t1, greater_label # If (t1 > t0), branch
+   9   0x0008   4A22             blt t0, t1, greater_label # If (t1 > t0), branch
   10   0x000A                  
   11   0x000A   FFB9             li a0, -1       # If branch not taken, set -1
   12   0x000C   0047             ecall 1         # Print result

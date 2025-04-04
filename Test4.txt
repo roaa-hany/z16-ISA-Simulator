@@ -17,5 +17,5 @@ factorial:
 
 base_case:
     lw      ra, 0(sp)   	# Restore return address
-    addi    sp, sp, 2   	# Deallocate stack space
-    jr      ra          		# Return
+    addi    sp, 2   	        # Deallocate stack space
+    jr      ra          	# Return
