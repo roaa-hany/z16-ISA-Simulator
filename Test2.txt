@@ -3,6 +3,7 @@
 main:
     lui     a0, %hi(w)
     addi    a0, %lo(w)   # Load address 0x100 into a0
+    ecall 1
     lw      t1, 0(a0)    # Load word from memory address in a0 into t1
     lb      t0, 2(a0)    # Load byte from memory address a0 + 2 into t0
     mv a0, t1
