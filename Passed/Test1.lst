@@ -1,0 +1,15 @@
+Line   Address   Machine Code    Source
+-----------------------------------------------------
+   1                          .text
+   2   0x0000                  .org 0
+   3   0x0000                  main:
+   4   0x0000   15B9             li      a0, 10      # Load immediate 10 into a0
+   5   0x0002   0BF9             li      a1, 5       # Load immediate 5 into a1
+   6   0x0004   0F80             add     a0, a1      # a0 = a0 + a1
+   7   0x0006   1DC0             sub     a1, a0      # a1 = a1 - a0
+   8   0x0008   0FA8             and     a0, a1      # a0 = a0 & a1
+   9   0x000A   1FA0             or      a0, a1      # a0 = a0 | a1
+  10   0x000C   0DF0             xor     a1, a0      # a1 = a1 ^ a0
+  11   0x000E   2399             slli    a0, 1       # a0 = a0 << 1
+  12   0x0010   43D9             srli    a1, 1       # a1 = a1 >> 1
+  13   0x0012   00C7             ecall   3           # Terminate program

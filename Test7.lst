@@ -1,0 +1,22 @@
+Line   Address   Machine Code    Source
+-----------------------------------------------------
+   1                          .text
+   2   0x0000                  .org 0
+   3   0x0000                  main:
+   4   0x0000   0BB9             li a0, 5       # Load immediate 5
+   5   0x0002   05F9             li a1, 2        # Load shift amount 2
+   6   0x0004   4C18             srl t0, a0      # Logical right shift (5 >> 2)
+   7   0x0006   2D58             sll t1, a0      # Logical left shift (5 << 2)
+   8   0x0008                  
+   9   0x0008   3A22             blt t0, t1, greater_label # If (t1 > t0), branch
+  10   0x000A                  
+  11   0x000A   FFB9             li a0, -1       # If branch not taken, set -1
+  12   0x000C   0047             ecall 1         # Print result
+  13   0x000E   001D             j exit
+  14   0x0010                  
+  15   0x0010                  greater_label:
+  16   0x0010   03B9             li a0, 1        # If branch taken, set 1
+  17   0x0012   0047             ecall 1         # Print result
+  18   0x0014                  
+  19   0x0014                  exit:
+  20   0x0014   00C7             ecall 3         # Exit program

@@ -1,0 +1,16 @@
+Line   Address   Machine Code    Source
+-----------------------------------------------------
+   1                          .text
+   2   0x0000                  .org 0
+   3   0x0000                  main:
+   4   0x0000   1FB9             li a0, 15       # Load immediate 15 into a0
+   5   0x0002   0FF9             li a1, 7        # Load immediate 7 into a1
+   6   0x0004   0FA8             and a0, a1      # Bitwise AND (15 & 7)
+   7   0x0006   1FA0             or  a0, a1      # Bitwise OR ((15 & 7) | 7)
+   8   0x0008   0FB0             xor a0, a1      # Bitwise XOR (((15 & 7) | 7) ^ 7)
+   9   0x000A                      
+  10   0x000A   0F80             add a0, a1      # a0 = result + 7
+  11   0x000C   0047             ecall 1         # Print a0
+  12   0x000E                  
+  13   0x000E                  exit:
+  14   0x000E   00C7             ecall 3         # Exit program

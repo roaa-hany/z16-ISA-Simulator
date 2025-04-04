@@ -1,0 +1,12 @@
+.data
+message: .asciiz "Hello, ISA!"
+
+.text
+.org 0
+main:
+    lui     a0, %hi(message)
+    addi    a0, %lo(message)    # Load message address into a0
+    ecall 5         		# Print the null-terminated string
+
+exit:
+    ecall 3         # Exit program
