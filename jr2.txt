@@ -1,0 +1,11 @@
+ .text
+    .org    0
+main:
+    li      s0, 10
+    li      s1, 0
+    li      ra, 0x000A
+    jr      ra
+    ecall   1
+    addi    a0, 63
+    ecall   1
+    ecall 3
