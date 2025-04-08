@@ -3,7 +3,7 @@ Line   Address   Machine Code    Source
    1                          .text
    2   0x0000                  .org 0
    3   0x0000                  main:
-   4   0x0000   03B9             li a0, -0x7F    # Load immediate -1
+   4   0x0000   FFB9             li a0, 0x7F    # Load immediate -1
    5   0x0002   05F9             li a1, 2       # Load shift amount 2      
    6   0x0004                  
    7   0x0004   4F98             srl a0, a1      # Logical right shift (a0 >> 2)

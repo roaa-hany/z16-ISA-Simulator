@@ -1,0 +1,46 @@
+Line   Address   Machine Code    Source
+-----------------------------------------------------
+   1                          .text
+   2   0x0000                  .org 0
+   3   0x0000                  main:
+   4   0x0000   0BB9             li      a0, 5          # a0 = 5
+   5   0x0002   1579             li      t1, 10         # a1 = 10
+   6   0x0004                  
+   7   0x0004   0B88             slt     a0, t1         # a0 = (5 < 10)? 1 : 0   => a0 = 1
+   8   0x0006   0047             ecall   1
+   9   0x0008                  
+  10   0x0008   F7F9             li      a1, -5         # a1 = -5
+  11   0x000A   EC39             li      t0, -10        # t0 = -10    
+  12   0x000C   01D0             sltu    a1, t0         # a1 = (5- < 10- unsigned)? 1 : 0 => a1 = 1
+  13   0x000E   0FB8             mv      a0, a1
+  14   0x0010   0047             ecall   1
+  15   0x0012                  
+  16   0x0012   30F9             li      s0, 0x18
+  17   0x0014   8640             jalr    ra, s0         # Jump to address in s0 (0x18), saving return in ra
+  18   0x0016                         
+  19   0x0016   00C7             ecall   3              # Exit if jalr failed
+  20   0x0018                  
+  21   0x0018                  branch_test:
+  22   0x0018   D839             li      t0, -20
+  23   0x001A   01B8             mv      a0, t0
+  24   0x001C   0047             ecall   1
+  25   0x001E   E379             li      t1, -15
+  26   0x0020   0BB8             mv      a0, t1
+  27   0x0022   0047             ecall   1
+  28   0x0024                  
+  29   0x0024   3A32             bltu    t0, t1, less   # if -20 < -15 (unsigned), jump to less
+  30   0x0026   5A3A             bgeu    t0, t1, greater_or_equal  # if -20 >= -15 (unsigned), jump here
+  31   0x0028                  
+  32   0x0028   00C7             ecall   3
+  33   0x002A                  
+  34   0x002A                  less:
+  35   0x002A   03B9             li      a0, 1
+  36   0x002C   0047             ecall   1              # print 1
+  37   0x002E   001D             j       end
+  38   0x0030                  
+  39   0x0030                  greater_or_equal:
+  40   0x0030   05B9             li      a0, 2
+  41   0x0032   0047             ecall   1              # print 2
+  42   0x0034                  
+  43   0x0034                  end:
+  44   0x0034   00C7             ecall   3              # exit
