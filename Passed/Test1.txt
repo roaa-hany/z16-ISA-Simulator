@@ -4,10 +4,18 @@ main:
     li      a0, 10      # Load immediate 10 into a0
     li      a1, 5       # Load immediate 5 into a1
     add     a0, a1      # a0 = a0 + a1
-    sub     a1, a0      # a1 = a1 - a0
+    ecall 1
+    sub     a0, a1      # a0 = a0 - a1
+    ecall 1
     and     a0, a1      # a0 = a0 & a1
+    ecall 1
     or      a0, a1      # a0 = a0 | a1
-    xor     a1, a0      # a1 = a1 ^ a0
+    ecall 1
+    xor     a0, a1      # a0 = a0 ^ a1
+    ecall 1
     slli    a0, 1       # a0 = a0 << 1
+    ecall 1
     srli    a1, 1       # a1 = a1 >> 1
+    mv      a0, a1      # a0 = a1
+    ecall 1
     ecall   3           # Terminate program

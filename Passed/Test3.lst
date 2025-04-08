@@ -6,10 +6,13 @@ Line   Address   Machine Code    Source
    4   0x0000   15B9             li      a0, 10      # Load immediate 10 into a0
    5   0x0002   15F9             li      a1, 10      # Load immediate 10 into a1
    6   0x0004   2F82             beq     a0, a1, equal_case  # Branch if a0 == a1
-   7   0x0006   0015             j       end         # Unconditional jump
-   8   0x0008                  
-   9   0x0008                  equal_case:
-  10   0x0008   0239             li      t0, 1       # If equal, set t0 = 1
-  11   0x000A                  
-  12   0x000A                  end:
-  13   0x000A   00C7             ecall   3           # Terminate program
+   7   0x0006                  
+   8   0x0006                  not_equal:
+   9   0x0006   001D             j       end         # Unconditional jump
+  10   0x0008                  
+  11   0x0008                  equal_case:
+  12   0x0008   0239             li      t0, 1       # If equal, set t0 = 1
+  13   0x000A   E18A             bne     a0, t0, not_equal  # Branch if a0 != t0
+  14   0x000C                  
+  15   0x000C                  end:
+  16   0x000C   00C7             ecall   3           # Terminate program

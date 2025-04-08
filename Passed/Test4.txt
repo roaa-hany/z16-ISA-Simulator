@@ -9,11 +9,12 @@ factorial:
     addi    sp, -2  		# Allocate stack space
     sw      ra, 0(sp)   	# Save return address
 
+recurse:
     li      t0, 1       	# Load 1 into t0
     beq     a0, t0, base_case   # If a0 == 1, return 1
 
     addi    a0, -1  		# Decrement a0
-    jal     ra, factorial  	# Recursive call
+    jal     ra, recurse  	# Recursive call
 
 base_case:
     lw      ra, 0(sp)   	# Restore return address

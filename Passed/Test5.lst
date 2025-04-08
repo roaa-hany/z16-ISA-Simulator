@@ -6,6 +6,12 @@ Line   Address   Machine Code    Source
    4   0x0000   FFB9             li      a0, 0xFF     # Load 0xFF into a0
    5   0x0002   4BF9             li      a1, 0xA5     # Load 0xA5 into a1
    6   0x0004   1FA9             andi    a0, 0x0F 	 # a0 = a0 & 0x0F
-   7   0x0006   E1E1             ori     a1, 0xF0 	 # a1 = a1 | 0xF0
-   8   0x0008   FFF1             xori    a1, 0xFF 	 # a1 = a1 ^ 0xFF
-   9   0x000A   00C7             ecall   3            # Terminate program
+   7   0x0006   0047             ecall   1
+   8   0x0008   E1A1             ori     a0, 0xF0 	 # a0 = a0 | 0xF0
+   9   0x000A   0047             ecall   1
+  10   0x000C   FFB1             xori    a0, 0xFF 	 # a0 = a0 ^ 0xFF
+  11   0x000E   0047             ecall   1
+  12   0x0010   85D9             srai    a1, 2        # a1 >> 2
+  13   0x0012   0FB8             mv      a0, a1       # a0 = a1
+  14   0x0014   0047             ecall   1
+  15   0x0016   00C7             ecall   3            # Terminate program

@@ -1,0 +1,23 @@
+Line   Address   Machine Code    Source
+-----------------------------------------------------
+   1                          .text
+   2   0x0000                  .org 0
+   3   0x0000                  main:
+   4   0x0000   7FB9             li      a0, 63          # load max allowed immediate
+   5   0x0002   0581             addi    a0, 2           # a0 = 63 + 2 = 65
+   6   0x0004                  
+   7   0x0004   8016             auipc   t0, %hi(data)   # upper of address
+   8   0x0006   0001             addi    t0, %lo(data)   # t0 = &data
+   9   0x0008                  
+  10   0x0008   0C03             sb      a0, 0(t0)       # store byte 65 at data
+  11   0x000A                  
+  12   0x000A   01C4             lb      a1, 0(t0)       # load it back
+  13   0x000C   0FB8             mv      a0, a1
+  14   0x000E   0047             ecall   1               # print 65
+  15   0x0010                  
+  16   0x0010   00C7             ecall   3
+  17   0x0012                  
+  18   0x0012                  .data
+  19   0x0100                  .org 0x100
+  20   0x0100                  data:
+  21   0x0100   00               .byte 0

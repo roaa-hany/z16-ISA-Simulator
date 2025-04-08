@@ -1,0 +1,23 @@
+Line   Address   Machine Code    Source
+-----------------------------------------------------
+   1                          .text
+   2   0x0000                  .org 0
+   3   0x0000                  main:
+   4   0x0000   0BB9             li      a0, 5             # a0 = 5
+   5   0x0002   C9F9             li      a1, 100           # a1 = 100
+   6   0x0004                  
+   7   0x0004   1589             slti    a0, 10            # a0 = (5 < 10)? 1 : 0 → a0 = 1
+   8   0x0006   FFD1             sltui   a1, 255           # a1 = (100 < 255 unsigned)? 1 : 0 → a1 = 1
+   9   0x0008                  
+  10   0x0008   2192             bz      a0, skip1         # a0 = 1 → not zero → skip bz
+  11   0x000A   C8F9             li      s0, 100           # s0 = 100 (should run)
+  12   0x000C                  
+  13   0x000C                  skip1:
+  14   0x000C   21DA             bnz     a1, print         # a1 = 1 → not zero → jump to print
+  15   0x000E   90F9             li      s0, 200           # skipped
+  16   0x0010                  
+  17   0x0010                  print:
+  18   0x0010   07B8             mv      a0, s0
+  19   0x0012   0047             ecall   1                 # print s0 → should print 100
+  20   0x0014                  
+  21   0x0014   00C7             ecall   3                 # exit

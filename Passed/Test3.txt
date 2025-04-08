@@ -4,10 +4,13 @@ main:
     li      a0, 10      # Load immediate 10 into a0
     li      a1, 10      # Load immediate 10 into a1
     beq     a0, a1, equal_case  # Branch if a0 == a1
+
+not_equal:
     j       end         # Unconditional jump
 
 equal_case:
     li      t0, 1       # If equal, set t0 = 1
+    bne     a0, t0, not_equal  # Branch if a0 != t0
 
 end:
     ecall   3           # Terminate program

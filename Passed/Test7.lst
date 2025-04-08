@@ -3,20 +3,28 @@ Line   Address   Machine Code    Source
    1                          .text
    2   0x0000                  .org 0
    3   0x0000                  main:
-   4   0x0000   0BB9             li a0, 5       # Load immediate 5
-   5   0x0002   05F9             li a1, 2        # Load shift amount 2
-   6   0x0004   4C18             srl t0, a0      # Logical right shift (5 >> 2)
-   7   0x0006   2D58             sll t1, a0      # Logical left shift (5 << 2)
-   8   0x0008                  
-   9   0x0008   4A22             blt t0, t1, greater_label # If (t1 > t0), branch
-  10   0x000A                  
-  11   0x000A   FFB9             li a0, -1       # If branch not taken, set -1
-  12   0x000C   0047             ecall 1         # Print result
-  13   0x000E   001D             j exit
-  14   0x0010                  
-  15   0x0010                  greater_label:
-  16   0x0010   03B9             li a0, 1        # If branch taken, set 1
-  17   0x0012   0047             ecall 1         # Print result
-  18   0x0014                  
-  19   0x0014                  exit:
-  20   0x0014   00C7             ecall 3         # Exit program
+   4   0x0000   03B9             li a0, -0x7F    # Load immediate -1
+   5   0x0002   05F9             li a1, 2       # Load shift amount 2      
+   6   0x0004                  
+   7   0x0004   4F98             srl a0, a1      # Logical right shift (a0 >> 2)
+   8   0x0006   0047             ecall 1
+   9   0x0008                  
+  10   0x0008   FFB9             li a0, 0x7F     # Load immediate -1
+  11   0x000A   2F98             sll a0, a1      # Logical left shift (a0 << 2)
+  12   0x000C   0047             ecall 1
+  13   0x000E                  
+  14   0x000E   FFB9             li a0, 0x7F     # Load immediate -1
+  15   0x0010   8F98             sra a0, a1      # Shift right arithmetic (a0 >> 2)
+  16   0x0012   0047             ecall 1
+  17   0x0014                  
+  18   0x0014   2DE2             blt a1, a0, less_than # If (a1 < a0), branch
+  19   0x0016                  
+  20   0x0016   0025             j exit
+  21   0x0018                  
+  22   0x0018                  less_than:
+  23   0x0018   3BC1             addi a1, 29     # If branch taken, add 29 to a1
+  24   0x001A   2DEA             bge  a1, a0, exit # Exit if they are eaual
+  25   0x001C   0047             ecall 1         # Print result
+  26   0x001E                  
+  27   0x001E                  exit:
+  28   0x001E   00C7             ecall 3         # Exit program

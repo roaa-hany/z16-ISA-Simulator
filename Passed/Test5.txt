@@ -4,6 +4,12 @@ main:
     li      a0, 0xFF     # Load 0xFF into a0
     li      a1, 0xA5     # Load 0xA5 into a1
     andi    a0, 0x0F 	 # a0 = a0 & 0x0F
-    ori     a1, 0xF0 	 # a1 = a1 | 0xF0
-    xori    a1, 0xFF 	 # a1 = a1 ^ 0xFF
+    ecall   1
+    ori     a0, 0xF0 	 # a0 = a0 | 0xF0
+    ecall   1
+    xori    a0, 0xFF 	 # a0 = a0 ^ 0xFF
+    ecall   1
+    srai    a1, 2        # a1 >> 2
+    mv      a0, a1       # a0 = a1
+    ecall   1
     ecall   3            # Terminate program

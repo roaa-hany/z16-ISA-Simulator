@@ -1,0 +1,29 @@
+Line   Address   Machine Code    Source
+-----------------------------------------------------
+   1                          .text
+   2   0x0000                  .org 0
+   3   0x0000                  main:
+   4   0x0000   0196             lui     a0, %hi(w)
+   5   0x0002   0181             addi    a0, %lo(w)   # Load address 0x100 into a0
+   6   0x0004   0D4C             lw      t1, 0(a0)    # Load word from memory address in a0 into t1
+   7   0x0006   0BB8             mv      a0, t1
+   8   0x0008   0047             ecall 1
+   9   0x000A                  
+  10   0x000A   0196             lui     a0, %hi(b)
+  11   0x000C   0581             addi    a0, %lo(b)   # Load address 0x100 into a0
+  12   0x000E   0C04             lb      t0, (a0)     # Load byte from memory address a0 into t0
+  13   0x0010   01B8             mv      a0, t0
+  14   0x0012   0047             ecall 1
+  15   0x0014                  
+  16   0x0014   0196             lui     a0, %hi(b)
+  17   0x0016   0581             addi    a0, %lo(b)    # Load address 0x100 into a0
+  18   0x0018   0C24             lbu     t0, (a0)      # Load unsigned byte from memory address a0 into t0
+  19   0x001A   01B8             mv      a0, t0
+  20   0x001C   0047             ecall 1
+  21   0x001E                  
+  22   0x001E   00C7             ecall   3            # Terminate program
+  23   0x0020                  
+  24   0x0020                  .data
+  25   0x0100                  .org 0x100
+  26   0x0100   000C         w: .word   12
+  27   0x0102   FF           b: .byte   0xFF

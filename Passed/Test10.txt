@@ -1,6 +1,3 @@
-.data
-message: .asciiz "Hello, ISA!"
-
 .text
 .org 0
 main:
@@ -10,3 +7,7 @@ main:
 
 exit:
     ecall 3         # Exit program
+
+.data
+.org    0x100
+message: .asciiz "Hello, ISA!"

@@ -47,7 +47,7 @@
 
 // Global simulated memory and register file.
 unsigned char memory[MEM_SIZE];
-uint16_t regs[8];      // 8 registers (16-bit each): x0, x1, x2, x3, x4, x5, x6, x7
+int16_t regs[8];       // 8 registers (16-bit each): x0, x1, x2, x3, x4, x5, x6, x7
 uint16_t pc = 0;       // Program counter (16-bit)
 
 // Register ABI names for display (x0 = t0, x1 = ra, x2 = sp, x3 = s0, x4 = s1, x5 = t1, x6 = a0, x7 = a1)
@@ -93,7 +93,7 @@ void disassemble(uint16_t inst, uint16_t pc, char *buf, size_t bufSize) {
             else if(funct4 == 0x0 && funct3 == 0x7)
                 snprintf(buf, bufSize, "mv %s, %s", regNames[rd_rs1], regNames[rs2]);
             else if(funct4 == 0x4 && funct3 == 0x0)
-                snprintf(buf, bufSize, "jr %s", regNames[rs2]);
+                snprintf(buf, bufSize, "jr 0x%04X", regs[rs2]);
             else if(funct4 == 0x8 && funct3 == 0x0)
                 snprintf(buf, bufSize, "jalr %s, %s", regNames[rd_rs1], regNames[rs2]);
             else
@@ -143,6 +143,10 @@ void disassemble(uint16_t inst, uint16_t pc, char *buf, size_t bufSize) {
             uint8_t rs2   = (inst >> 9) & 0x7;
             uint8_t rs1   = (inst >> 6) & 0x7;
             uint8_t funct3 = (inst >> 3) & 0x7;
+
+            if (imm & 0x10) {  // Check if the 4th bit (MSB in 4-bit) is 1 (negative number)
+                imm |= 0xF0;   // Sign extend by setting the higher bits (8 bits in this case) to 1
+            }
             int16_t branchTarget = pc + imm;
 
             if(funct3 == 0x0)
@@ -298,15 +302,15 @@ int executeInstruction(uint16_t inst) {
             else if(funct4 == 0x1 && funct3 == 0x0) // sub
                 regs[rd_rs1] = regs[rd_rs1] - regs[rs2];
             else if(funct4 == 0x0 && funct3 == 0x1) // slt
-                regs[rd_rs1] = ((int16_t)regs[rd_rs1] < (int16_t)regs[rs2]) ? 1 : 0;
-            else if(funct4 == 0x0 && funct3 == 0x2) // sltu
                 regs[rd_rs1] = (regs[rd_rs1] < regs[rs2]) ? 1 : 0;
+            else if(funct4 == 0x0 && funct3 == 0x2) // sltu
+                regs[rd_rs1] = ((uint16_t)regs[rd_rs1] < (uint16_t)regs[rs2]) ? 1 : 0;
             else if(funct4 == 0x2 && funct3 == 0x3) // sll
                 regs[rd_rs1] = regs[rd_rs1] << (regs[rs2]& 0xF); //cause the register can have a very large number whereas shifting can be at most with 16 bits
             else if(funct4 == 0x4 && funct3 == 0x3) // srl
-                regs[rd_rs1] = regs[rd_rs1] >> (regs[rs2]& 0xF);
+                regs[rd_rs1] = (uint16_t)regs[rd_rs1] >> (regs[rs2] & 0xF);
             else if(funct4 == 0x8 && funct3 == 0x3) // sra
-                regs[rd_rs1] = (int16_t)regs[rd_rs1] >> (regs[rs2] & 0xF);
+                regs[rd_rs1] = regs[rd_rs1] >> (regs[rs2] & 0xF);
             else if(funct4== 0x1 && funct3 == 0x4) //OR
                 regs[rd_rs1] = regs[rd_rs1] | regs[rs2];
             else if(funct4 == 0x0 && funct3 == 0x5) // and
@@ -323,7 +327,7 @@ int executeInstruction(uint16_t inst) {
             else if(funct4 == 0x8 && funct3 == 0x0) // jalr
             {
                 regs[rd_rs1] = pc + 2;  //this saves the return address
-                pc = regs[rs2]; //moves to the target adgress
+                pc = regs[rs2]; //moves to the target address
                 pcUpdated=1;
             }
             break;
@@ -361,7 +365,7 @@ int executeInstruction(uint16_t inst) {
             else if(funct3 == 0x6) //xori
                 regs[rd_rs1] = regs[rd_rs1] ^ simm;
             else if(funct3 == 0x7) //li
-                regs[rd_rs1] = imm7;
+                regs[rd_rs1] = simm;
 
             break;
         }
@@ -394,8 +398,6 @@ int executeInstruction(uint16_t inst) {
             else if(funct3==0x3 && regs[rs1] != 0)//bnz
             {
                 pcUpdated=1;
-                printf("The immediate is: ");
-                printf("%d\n", imm);
                 pc+=imm;
             }
             else if(funct3==0x4 && (int16_t)regs[rs1] < (int16_t)regs[rs2])//blt
@@ -408,12 +410,12 @@ int executeInstruction(uint16_t inst) {
                 pcUpdated=1;
                 pc+=imm;
             }
-            else if(funct3==0x6 && regs[rs1] < regs[rs2])//bltu
+            else if(funct3==0x6 && (uint16_t)regs[rs1] < (uint16_t)regs[rs2])//bltu
             {
                 pcUpdated=1;
                 pc+=imm;
             }
-            else if(funct3==0x7 && regs[rs1] >= regs[rs2])//bgeu
+            else if(funct3==0x7 && (uint16_t)regs[rs1] >= (uint16_t)regs[rs2])//bgeu
             {
                 pcUpdated=1;
                 pc+=imm;
@@ -427,23 +429,24 @@ int executeInstruction(uint16_t inst) {
             uint8_t rs1  = (inst >> 6) & 0x7;
             uint8_t funct3  = (inst >> 3) & 0x7;
             if(funct3==0x0)
-                memory[rs1 + imm] = (uint8_t)(regs[rs2]); //stores only the first 8 bits
+                memory[regs[rs1] + imm] = (uint8_t)(regs[rs2]); //stores only the first 8 bits
             else if(funct3 == 0x1)
-                memory[rs1 + imm] = (regs[rs2]);
+                memory[regs[rs1] + imm] = (regs[rs2]);
             break;
         }
         case 0x4: { // L-type (load)
             // your code goes here
-            int8_t imm = (inst >> 12) & 0xF; //the imm is signed
+            int8_t imm = (inst >> 12) & 0xF;
             uint8_t rs2     = (inst >> 9) & 0x7;
             uint8_t rd  = (inst >> 6) & 0x7;
             uint8_t funct3  = (inst >> 3) & 0x7;
+
             if(funct3==0x0)
-                regs[rd] = (int8_t)(memory[rs2 + imm]);
+                regs[rd] = (int8_t)(memory[regs[rs2] + imm]);
             else if(funct3 == 0x1)
-                regs[rd] = (memory[rs2 + imm]);
+                regs[rd] = (int8_t)(memory[regs[rs2] + imm]);
             else if(funct3 == 0x4)
-                regs[rd] = (uint8_t)(memory[rs2 + imm]); //the memory is unsigned by default
+                regs[rd] = (uint8_t)memory[(regs[rs2] + imm)]; //the memory is unsigned by default
             break;
         }
         //note that there is a typo in the instructions table on github, I[8:4] should be 6 bits instead
@@ -544,13 +547,6 @@ int executeInstruction(uint16_t inst) {
                         printf("Invalid memory address.\n");
                         return 0;
                     }
-
-                    //  Print each byte in hex and as a character --> debug
-                    printf("Memory dump at 0x%04X: ", regs[6]);
-                    for (int i = 0; i < 20; i++) {
-                        printf("%02X(%c) ", memory[regs[6]+i], isprint(memory[regs[6]+i]) ? memory[regs[6]+i] : '.');
-                    }
-                    printf("\n");
 
                     // print the string character by character, but skip the first character "
                     uint16_t addr = regs[6];

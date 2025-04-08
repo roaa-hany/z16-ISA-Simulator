@@ -1,0 +1,24 @@
+Line   Address   Machine Code    Source
+-----------------------------------------------------
+   1                          .text
+   2   0x0000                  .org 0
+   3   0x0000                  main:
+   4   0x0000   0BB9             li      a0, 5      		# Load argument a0 = 5
+   5   0x0002   8055             jal     ra, factorial  	# Jump to factorial function
+   6   0x0004   00C7             ecall   3          		# Terminate program
+   7   0x0006                  
+   8   0x0006                  factorial:
+   9   0x0006   FC81             addi    sp, -2  		# Allocate stack space
+  10   0x0008   028B             sw      ra, 0(sp)   	# Save return address
+  11   0x000A                  
+  12   0x000A                  recurse:
+  13   0x000A   0239             li      t0, 1       	# Load 1 into t0
+  14   0x000C   3182             beq     a0, t0, base_case   # If a0 == 1, return 1
+  15   0x000E                  
+  16   0x000E   FF81             addi    a0, -1  		# Decrement a0
+  17   0x0010   FE6D             jal     ra, recurse  	# Recursive call
+  18   0x0012                  
+  19   0x0012                  base_case:
+  20   0x0012   044C             lw      ra, 0(sp)   	# Restore return address
+  21   0x0014   0481             addi    sp, 2   	        # Deallocate stack space
+  22   0x0016   4200             jr      ra          	# Return
